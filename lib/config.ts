@@ -13,7 +13,7 @@
  */
 
 /** Human-readable cadence shown in the UI. */
-export const REFRESH_CADENCE_LABEL = "every 15 min";
+export const REFRESH_CADENCE_LABEL = "daily";
 
 /** How often the source itself changes (for honest UI copy). */
 export const SOURCE_CADENCE_LABEL = "hourly";

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Wind } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
+import { RefreshDataButton } from "./RefreshDataButton";
 
 const links = [
   { href: "/", label: "Dashboard" },
@@ -24,6 +25,7 @@ export function Navbar() {
           ))}
         </nav>
         <div className="ml-auto flex items-center gap-2">
+          <RefreshDataButton />
           <Link
             href="/search"
             className="hidden rounded-md border px-3 py-1.5 text-sm text-muted-foreground hover:bg-muted sm:block"

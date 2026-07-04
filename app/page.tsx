@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AqiBadge } from "@/components/AqiBadge";
 import { AqiGlobe } from "@/components/AqiGlobe";
+import { AutoRefresh } from "@/components/AutoRefresh";
 import { AuroraBackground } from "@/components/ui/aurora-background";
 import { BentoGrid, BentoItem } from "@/components/ui/bento-grid";
 import { latestSnapshot, stationsWithAqi, cityRankings } from "@/lib/queries";
@@ -25,6 +26,7 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-6">
+      <AutoRefresh intervalMs={30_000} />
       <div className="flex flex-wrap items-baseline justify-between gap-1">
         <h1 className="text-2xl font-bold">National Air Quality</h1>
         <div className="flex flex-col items-end text-sm">

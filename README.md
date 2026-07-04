@@ -132,7 +132,7 @@ npm install
 cp .env.local.example .env.local        # then edit DATAGOV_API_KEY
 
 # 3️⃣  Create the local SQLite schema
-npx drizzle-kit migrate
+npx drizzle-kit up:sqlite
 
 # 4️⃣  Pull a first snapshot (~3,500 records)
 export $(grep -v '^#' .env.local | xargs)   # tsx doesn't auto-load .env.local
@@ -244,7 +244,7 @@ Following the **CPCB National Air Quality Index** method ([`lib/aqi.ts`](lib/aqi
 
 1. 🗄️ Create a [Turso](https://turso.tech) database; set `TURSO_DATABASE_URL` and `TURSO_AUTH_TOKEN` in Vercel.
 2. 🔑 Set `DATAGOV_API_KEY` and a random `CRON_SECRET`.
-3. 🧬 Apply migrations against Turso: `drizzle-kit migrate` with the Turso URL.
+3. 🧬 Apply migrations against Turso: `drizzle-kit up:sqlite` with the Turso URL.
 4. 🚀 Deploy. `vercel.json` runs `/api/ingest` every **15 minutes**.
 
 #### ⏱️ Refresh frequency — why 15 minutes

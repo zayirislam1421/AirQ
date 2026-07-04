@@ -12,7 +12,12 @@ export const maxDuration = 60;
  */
 export async function GET(req: NextRequest) {
   const secret = process.env.CRON_SECRET;
-  if (secret) {
+  const host = req.headers.get("host") ?? "";
+  const isLocalDevRequest =
+    process.env.NODE_ENV !== "production" &&
+    (host.startsWith("localhost") || host.startsWith("127.0.0.1") || host.startsWith("[::1]"));
+
+  if (secret && !isLocalDevRequest) {
     const auth = req.headers.get("authorization");
     if (auth !== `Bearer ${secret}`) {
       return NextResponse.json({ error: "unauthorized" }, { status: 401 });

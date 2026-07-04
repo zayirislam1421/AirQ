@@ -110,17 +110,22 @@ export async function runIngest(
   // Dedup against the last successful snapshot unless forced (--catchup).
   if (!opts.force) {
     const last = await db
-      .select({ hash: snapshots.contentHash })
+      .select({ id: snapshots.id, hash: snapshots.contentHash })
       .from(snapshots)
       .where(eq(snapshots.status, "ok"))
       .orderBy(desc(snapshots.id))
       .limit(1);
     if (last.length && last[0].hash === hash) {
+      await db
+        .update(snapshots)
+        .set({ fetchedAt: new Date().toISOString() })
+        .where(eq(snapshots.id, last[0].id));
+
       return {
         status: "skipped",
         sourceCount: raw.length,
         stationCount: 0,
-        reason: "identical to last snapshot",
+        reason: "identical to last snapshot; refreshed sync timestamp",
       };
     }
   }
